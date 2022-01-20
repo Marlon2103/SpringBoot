@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/postagens")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*" , allowedHeaders = "*")
 public class PostagemController {
 	
 	@Autowired
@@ -63,8 +63,13 @@ public class PostagemController {
 }
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
+	public ResponseEntity<?> deletePostagem(@PathVariable long id) {
+		return  repository.findById(id)
+				.map(resposta -> {
+					repository.deleteById(id);
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+				})
+				.orElse(ResponseEntity.notFound().build());
 	}
 	
 }
