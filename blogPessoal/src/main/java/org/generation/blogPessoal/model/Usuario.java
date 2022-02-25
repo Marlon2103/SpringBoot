@@ -29,7 +29,7 @@ public class Usuario {
 
 	@NotNull(message = "O atributo Nome é Obrigatório!")
 	private String nome;
-    
+
 	@Schema(example = "email@email.com.br")
 	@NotNull(message = "O atributo Usuário é Obrigatório!")
 	@Email(message = "O atributo Usuário deve ser um email válido!")
@@ -38,6 +38,10 @@ public class Usuario {
 	@NotBlank(message = "O atributo Senha é Obrigatório!")
 	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
 	private String senha;
+
+	private String foto;
+
+	private String tipo;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
@@ -51,6 +55,7 @@ public class Usuario {
 		this.usuario = usuario;
 		this.senha = senha;
 	}
+
 	// Metodo construtor sem atributos
 	public Usuario() {
 	}
@@ -93,6 +98,22 @@ public class Usuario {
 
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }
